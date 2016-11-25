@@ -78,6 +78,7 @@ unsigned int cruzadores_qtd = 3;
 unsigned const int tamanho_matriz = 15;
 signed int matriz[15][15];
 unsigned char printLinhaColuna;
+unsigned char JOGO_DA_VELHA = 35;
 
 unsigned int getPosicao() {
     // return rand() / 2184;
@@ -335,7 +336,7 @@ void imprimirMatriz(unsigned int isImprimirTelaInicial) {
     unsigned int j = 0;
     unsigned char letra_A = 65;
     unsigned char printLetra;
-    char printChar;
+    signed int valorPosicao;
     /*
     UART1_Write_Text("|   |");
     UART1_Write_Text(" 1 |");
@@ -362,12 +363,12 @@ void imprimirMatriz(unsigned int isImprimirTelaInicial) {
         // UART1_Write(printLetra);
         // UART1_Write_Text(" |");
         for (j = 0; j < tamanho_matriz; j++) {
-            printChar = matriz[i][j];
+            valorPosicao = matriz[i][j];
             // UART1_Write(' ');
-            if (printChar == -1 || isImprimirTelaInicial) {
+            if (valorPosicao == -1 || valorPosicao == 0 || isImprimirTelaInicial) {
                 // UART1_Write('~');
             } else {
-                printLetra = matriz[i][j];
+                // IntToStr(valorPosicao, printLetra);
                 // UART1_Write(printLetra);
             }
             // UART1_Write_Text(" |");
@@ -389,18 +390,23 @@ unsigned int isAcertouEncouracado(unsigned int linha, unsigned int coluna) {
         for (j = 0; j < encouracados_posicoes; j++) {
             if (encouracados[i].posicoes[j].lin == linha &&
                     encouracados[i].posicoes[j].col == coluna &&
-                    encouracados[i].posicoes[j].acertou == -1) {
-                return 1;
+                    encouracados[i].posicoes[j].acertou == 0) {
+                encouracados[i].posicoes[j].acertou = 1;
+                return &(encouracados[i]);
             }
         }
     }
     return 0;
 }
 
-unsigned int isAfundouEncouracado(unsigned int linha, unsigned int coluna) {
-    unsigned int i = 0;
+unsigned int isAfundouEncouracado(signed int *encouracadoAcertado) {
     unsigned int j = 0;
-    return 0;
+    for (j = 0; j < encouracados_posicoes; j++) {
+        if (encouracados[*encouracadoAcertado].posicoes[j].acertou != 1) {
+            return 0;
+        }
+    }
+    return 1;
 }
 
 unsigned int isAcertouPortaAvioes(unsigned int linha, unsigned int coluna) {
@@ -410,16 +416,23 @@ unsigned int isAcertouPortaAvioes(unsigned int linha, unsigned int coluna) {
         for (j = 0; j < porta_avioes_posicoes; j++) {
             if (porta_avioes[i].posicoes[j].lin == linha &&
                     porta_avioes[i].posicoes[j].col == coluna &&
-                    porta_avioes[i].posicoes[j].acertou == -1) {
-                return 1;
+                    porta_avioes[i].posicoes[j].acertou == 0) {
+                porta_avioes[i].posicoes[j].acertou = 1;
+                return &(porta_avioes[i]);
             }
         }
     }
     return 0;
 }
 
-unsigned int isAfundouPortaAvioes(unsigned int linha, unsigned int coluna) {
-    return 0;
+unsigned int isAfundouPortaAvioes(signed int *portaAvioesAcertado) {
+    unsigned int j = 0;
+    for (j = 0; j < porta_avioes_posicoes; j++) {
+        if (porta_avioes[*portaAvioesAcertado].posicoes[j].acertou != 1) {
+            return 0;
+        }
+    }
+    return 1;
 }
 
 unsigned int isAcertouHidroAviao(unsigned int linha, unsigned int coluna) {
@@ -429,16 +442,23 @@ unsigned int isAcertouHidroAviao(unsigned int linha, unsigned int coluna) {
         for (j = 0; j < hidroavioes_posicoes; j++) {
             if (hidroavioes[i].posicoes[j].lin == linha &&
                     hidroavioes[i].posicoes[j].col == coluna &&
-                    hidroavioes[i].posicoes[j].acertou == -1) {
-                return 1;
+                    hidroavioes[i].posicoes[j].acertou == 0) {
+                hidroavioes[i].posicoes[j].acertou = 1;
+                return &(hidroavioes[i]);
             }
         }
     }
     return 0;
 }
 
-unsigned int isAfundouHidroAviao(unsigned int linha, unsigned int coluna) {
-    return 0;
+unsigned int isAfundouHidroAviao(unsigned int *hidroAviaoAcertado) {
+    unsigned int j = 0;
+    for (j = 0; j < hidroavioes_posicoes; j++) {
+        if (hidroavioes[*hidroAviaoAcertado].posicoes[j].acertou != 1) {
+            return 0;
+        }
+    }
+    return 1;
 }
 
 unsigned int isAcertouSubmarino(unsigned int linha, unsigned int coluna) {
@@ -448,16 +468,23 @@ unsigned int isAcertouSubmarino(unsigned int linha, unsigned int coluna) {
         for (j = 0; j < submarinos_posicoes; j++) {
             if (submarinos[i].posicoes[j].lin == linha &&
                     submarinos[i].posicoes[j].col == coluna &&
-                    submarinos[i].posicoes[j].acertou == -1) {
-                return 1;
+                    submarinos[i].posicoes[j].acertou == 0) {
+                submarinos[i].posicoes[j].acertou = 1;
+                return &(submarinos[i]);
             }
         }
     }
     return 0;
 }
 
-unsigned int isAfundouSubmarino(unsigned int linha, unsigned int coluna) {
-    return 0;
+unsigned int isAfundouSubmarino(unsigned int *submarinoAcertado) {
+    unsigned int j = 0;
+    for (j = 0; j < submarinos_posicoes; j++) {
+        if (submarinos[*submarinoAcertado].posicoes[j].acertou != 1) {
+            return 0;
+        }
+    }
+    return 1;
 }
 
 unsigned int isAcertouCruzador(unsigned int linha, unsigned int coluna) {
@@ -467,60 +494,72 @@ unsigned int isAcertouCruzador(unsigned int linha, unsigned int coluna) {
         for (j = 0; j < cruzadores_posicoes; j++) {
             if (cruzadores[i].posicoes[j].lin == linha &&
                     cruzadores[i].posicoes[j].col == coluna &&
-                    cruzadores[i].posicoes[j].acertou == -1) {
-                return 1;
+                    cruzadores[i].posicoes[j].acertou == 0) {
+                cruzadores[i].posicoes[j].acertou = 1;
+                return &(cruzadores[i]);
             }
         }
     }
     return 0;
 }
 
-unsigned int isAfundouCruzador(unsigned int linha, unsigned int coluna) {
-    return 0;
+unsigned int isAfundouCruzador(unsigned int *cruzadorAcertado) {
+    unsigned int j = 0;
+    for (j = 0; j < cruzadores_posicoes; j++) {
+        if (cruzadores[*cruzadorAcertado].posicoes[j].acertou != 1) {
+            return 0;
+        }
+    }
+    return 1;
 }
 
 void verificarJogada(unsigned int linha, unsigned int coluna) {
-    if (isAcertouEncouracado(linha, coluna)) {
+    signed int *encouracadoAcertado = isAcertouEncouracado(linha, coluna);
+    if (*encouracadoAcertado) {
         municoes += 2;
         executarSomAcertou();
         escreverMatriz(linha, coluna, 'E');
-        if (isAfundouEncouracado(linha, coluna)) {
+        if (isAfundouEncouracado(&encouracadoAcertado)) {
             municoes += 3;
             executarSomAfundou();
         }
     } else {
-        if (isAcertouPortaAvioes(linha, coluna)) {
+        signed int *portaAvioesAcertado = isAcertouPortaAvioes(linha, coluna);
+        if (*portaAvioesAcertado) {
             municoes += 2;
             executarSomAcertou();
             escreverMatriz(linha, coluna, 'P');
-            if (isAfundouPortaAvioes(linha, coluna)) {
+            if (isAfundouPortaAvioes(&portaAvioesAcertado)) {
                 municoes += 3;
                 executarSomAfundou();
             }
         } else {
-            if (isAcertouHidroAviao(linha, coluna)) {
+            signed int hidroAviaoAcertado = isAcertouHidroAviao(linha, coluna);
+            if (*hidroAviaoAcertado) {
                 municoes += 2;
                 executarSomAcertou();
                 escreverMatriz(linha, coluna, 'H');
-                if (isAfundouHidroAviao(linha, coluna)) {
+                if (isAfundouHidroAviao(&hidroAviaoAcertado)) {
                     municoes += 3;
                     executarSomAfundou();
                 }
             } else {
-                if (isAcertouSubmarino(linha, coluna)) {
+                signed int submarinoAcertado = isAcertouSubmarino(linha, coluna);
+                if (*submarinoAcertado) {
                     municoes += 2;
                     executarSomAcertou();
                     escreverMatriz(linha, coluna, 'S');
-                    if (isAfundouSubmarino(linha, coluna)) {
+                    if (isAfundouSubmarino(&submarinoAcertado)) {
                         municoes += 3;
                         executarSomAfundou();
                     }
                 } else {
-                    if (isAcertouCruzador(linha, coluna)) {
+                    signed int cruzadorAcertado = isAcertouCruzador(linha, coluna);
+                    if (*cruzadorAcertado) {
                         municoes += 2;
                         executarSomAcertou();
                         escreverMatriz(linha, coluna, 'C');
-                        if (isAfundouCruzador(linha, coluna)) {
+                        if (isAfundouCruzador(&cruzadorAcertado)) {
                             municoes += 3;
                             executarSomAfundou();
                         }
@@ -542,13 +581,18 @@ void main() {
 
     initMatriz();
     initEncouracados();
+    /*
     initPortaAvioes();
     initHidroavioes();
     initSubmarinos();
     initCruzadores();
-    // initRandom();
+    initRandom();
 
     imprimirMatriz(1);
+    */
+    
+    // REMOVER
+    verificarJogada(0, 0);
 
     while (municoes > 0) {
 
@@ -564,15 +608,20 @@ void main() {
         UART1_Write_Text("Informe uma coluna: ");
         while (!UART1_Data_Ready());
         UART1_Read_Text(input_config, ENTER, 30);
-        UART1_Write_Text(input_config);
-        coluna = atoi(input_config);
-        
-        quebraLinha();
-         */
-        municoes--;
-        verificarJogada(linha, coluna);
+        UART1_Write_Text(input_config);        
+         
+        if(input_config == JOGO_DA_VELHA){
+           // Imprimir posicoes da matriz 
+        } else {
+            coluna = atoi(input_config);
 
-        imprimirMatriz(0);
+            quebraLinha();
+            municoes--;
+            verificarJogada(linha, coluna);
+
+            imprimirMatriz(0);        
+        }
+        */
     }
 
 }
