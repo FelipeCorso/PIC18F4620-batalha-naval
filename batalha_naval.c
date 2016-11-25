@@ -147,16 +147,13 @@ void initEncouracados() {
     unsigned int j = 0;
     unsigned int linha = 0;
     unsigned int coluna = 0;
-    unsigned int isPosicaoValida_ = 0;
+    unsigned int posicaoValida = 0;
 
-    //linha = getPosicao();
-    //coluna = getPosicao();
-    linha = 3;
-    coluna = 9;
-
-    isPosicaoValida_ = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
-    while (!isPosicaoValida_) {
-        isPosicaoValida_ = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
+    linha = getPosicao();
+    coluna = getPosicao();
+    posicaoValida = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
+    while (!posicaoValida) {
+        posicaoValida = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
     }
 
     for (i = 0; i < encouracados_qtd; i++) {
@@ -167,14 +164,13 @@ void initEncouracados() {
             escreverMatriz(linha, coluna, '0');
             coluna++;
         }
-        //linha = getPosicao();
-        //coluna = getPosicao();
-        linha = 3;
-        coluna = 9;
+		
         if ((i + 1) < encouracados_qtd) {
-            isPosicaoValida_ = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
-            while (!isPosicaoValida_) {
-                isPosicaoValida_ = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
+			linha = getPosicao();
+			coluna = getPosicao();
+            posicaoValida = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
+            while (!posicaoValida) {
+                posicaoValida = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
             }
         }        
     }
@@ -184,17 +180,30 @@ void initPortaAvioes() {
     unsigned int i = 0;
     unsigned int linha = 0;
     unsigned int coluna = 0;
+	unsigned int posicaoValida = 0;
 
     linha = getPosicao();
-    coluna = getPosicao();
-
-    while (!isPosicaoValida(&linha, &coluna, porta_avioes_posicoes));
+    coluna = getPosicao();	
+	posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
+    while (!posicaoValida){
+		posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
+	}
 
     for (i = 0; i < porta_avioes_posicoes; i++) {
         porta_avioes[0].posicoes[i].lin = 0;
         porta_avioes[0].posicoes[i].col = 0;
         porta_avioes[0].posicoes[i].acertou = 0;
+		escreverMatriz(linha, coluna, '0');
     }
+	
+	if((i + 1) < porta_avioes_qtd){
+		linha = getPosicao();
+		coluna = getPosicao();		
+		posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
+		while (!posicaoValida){
+			posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
+		}
+	}
 }
 
 void initHidroavioes() {
@@ -202,23 +211,32 @@ void initHidroavioes() {
     unsigned int j = 0;
     unsigned int linha = 0;
     unsigned int coluna = 0;
+	unsigned int posicaoValida = 0;
 
     linha = getPosicao();
     coluna = getPosicao();
-
-    while (!isPosicaoValida(&linha, &coluna, hidroavioes_posicoes));
+	posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
+    while (!posicaoValida){
+		posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
+	}
 
     for (i = 0; i < hidroavioes_qtd; i++) {
         for (j = 0; j < hidroavioes_posicoes; j++) {
             hidroavioes[i].posicoes[j].lin = linha;
             hidroavioes[i].posicoes[j].col = coluna;
             hidroavioes[i].posicoes[j].acertou = 0;
+			escreverMatriz(linha, coluna, '0');
             coluna++;
         }
-        linha = getPosicao();
-        coluna = getPosicao();
-        // TODO: validar
-        while (!isPosicaoValida(&linha, &coluna, hidroavioes_posicoes));
+		
+		if((i + 1) < hidroavioes_qtd){
+		    linha = getPosicao();
+			coluna = getPosicao();
+			posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
+			while (!posicaoValida){
+				posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
+			}
+		}
     }
 }
 
@@ -227,23 +245,32 @@ void initSubmarinos() {
     unsigned int j = 0;
     unsigned int linha = 0;
     unsigned int coluna = 0;
+	unsigned int posicaoValida = 0;
 
     linha = getPosicao();
     coluna = getPosicao();
-
-    while (!isPosicaoValida(&linha, &coluna, submarinos_posicoes));
+	posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
+    while (!posicaoValida){
+		posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
+	}
 
     for (i = 0; i < submarinos_qtd; i++) {
         for (j = 0; j < submarinos_posicoes; j++) {
             submarinos[i].posicoes[j].lin = linha;
             submarinos[i].posicoes[j].col = coluna;
             submarinos[i].posicoes[j].acertou = 0;
+			escreverMatriz(linha, coluna, '0');
             coluna++;
         }
-        linha = getPosicao();
-        coluna = getPosicao();
-        // TODO: validar
-        while (!isPosicaoValida(&linha, &coluna, submarinos_posicoes));
+		
+		if((i + 1) < submarinos_qtd){
+			linha = getPosicao();
+			coluna = getPosicao();
+			posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
+			while (!posicaoValida){
+				posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
+			}
+		}
     }
 }
 
@@ -252,23 +279,32 @@ void initCruzadores() {
     unsigned int j = 0;
     unsigned int linha = 0;
     unsigned int coluna = 0;
+	unsigned int posicaoValida = 0;
 
     linha = getPosicao();
     coluna = getPosicao();
-
-    while (!isPosicaoValida(&linha, &coluna, cruzadores_posicoes));
+	posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
+    while (!posicaoValida){
+		posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
+	}
 
     for (i = 0; i < cruzadores_qtd; i++) {
         for (j = 0; j < cruzadores_posicoes; j++) {
             cruzadores[i].posicoes[j].lin = linha;
             cruzadores[i].posicoes[j].col = coluna;
             cruzadores[i].posicoes[j].acertou = 0;
+			escreverMatriz(linha, coluna, '0');
             coluna++;
         }
-        linha = getPosicao();
-        coluna = getPosicao();
-        // TODO: validar
-        while (!isPosicaoValida(&linha, &coluna, cruzadores_posicoes));
+
+        if((i + 1) < cruzadores_qtd){
+		    linha = getPosicao();
+			coluna = getPosicao();
+			posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
+			while (!posicaoValida){
+				posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
+			}
+		}
     }
 }
 
