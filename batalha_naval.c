@@ -209,15 +209,6 @@ void initPortaAvioes() {
         //escreverMatriz(linha, coluna, '0');
         escreverMatriz(linha, i, 'p');
     }
-	
-	if((i + 1) < porta_avioes_qtd){
-		linha = getPosicao();
-		coluna = getPosicao();		
-		posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
-		while (!posicaoValida){
-			posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
-		}
-	}
 }
 
 void initHidroavioes() {
