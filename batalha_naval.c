@@ -326,7 +326,10 @@ void quebraLinha() {
     // UART1_Write_Text("Pressione uma tecla ");
     while (1) {
         random++;
-        // UART1_Read_Text(input_config, ENTER, 30);
+        while (!UART1_Data_Ready()) {
+            random++;
+        }
+        UART1_Read_Text(input_config, ENTER, 30);
         tecla = atoi(input_config);
         if (tecla != 255) {
            srand(random);
@@ -737,6 +740,7 @@ void main() {
     unsigned int linha;
     unsigned int coluna;
 
+    initRandom();
     initMatriz();
     initEncouracados();
     /*
@@ -744,7 +748,6 @@ void main() {
     initHidroavioes();
     initSubmarinos();
     initCruzadores();
-    initRandom();
 
     imprimirMatriz(1);
     */
