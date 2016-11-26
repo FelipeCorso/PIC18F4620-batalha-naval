@@ -770,13 +770,13 @@ void main() {
         while (!UART1_Data_Ready());
         UART1_Read_Text(input_config, ENTER, 30);
         UART1_Write_Text(input_config);        
-         
-        if(input_config == JOGO_DA_VELHA){
-           // Imprimir posicoes da matriz 
-        } else {
             coluna = atoi(input_config);
 
             quebraLinha();
+
+        if (coluna == 99) {
+            imprimirMatriz(0, 1);
+        } else {
             municoes--;
             verificarJogada(linha, coluna);
 
