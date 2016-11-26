@@ -173,7 +173,8 @@ void initEncouracados() {
             encouracados[i].posicoes[j].lin = linha;
             encouracados[i].posicoes[j].col = coluna;
             encouracados[i].posicoes[j].acertou = 0;
-            escreverMatriz(linha, coluna, '0');
+            //escreverMatriz(linha, coluna, '0');
+            escreverMatriz(linha, coluna, 'e');
             coluna++;
         }
 		
@@ -205,7 +206,8 @@ void initPortaAvioes() {
         porta_avioes[0].posicoes[i].lin = 0;
         porta_avioes[0].posicoes[i].col = 0;
         porta_avioes[0].posicoes[i].acertou = 0;
-		escreverMatriz(linha, coluna, '0');
+        //escreverMatriz(linha, coluna, '0');
+        escreverMatriz(linha, i, 'p');
     }
 	
 	if((i + 1) < porta_avioes_qtd){
@@ -237,7 +239,8 @@ void initHidroavioes() {
             hidroavioes[i].posicoes[j].lin = linha;
             hidroavioes[i].posicoes[j].col = coluna;
             hidroavioes[i].posicoes[j].acertou = 0;
-			escreverMatriz(linha, coluna, '0');
+            //escreverMatriz(linha, coluna, '0');
+            escreverMatriz(linha, coluna, 'h');
             coluna++;
         }
 		
@@ -271,7 +274,8 @@ void initSubmarinos() {
             submarinos[i].posicoes[j].lin = linha;
             submarinos[i].posicoes[j].col = coluna;
             submarinos[i].posicoes[j].acertou = 0;
-			escreverMatriz(linha, coluna, '0');
+            //escreverMatriz(linha, coluna, '0');
+            escreverMatriz(linha, coluna, 's');
             coluna++;
         }
 		
@@ -305,7 +309,8 @@ void initCruzadores() {
             cruzadores[i].posicoes[j].lin = linha;
             cruzadores[i].posicoes[j].col = coluna;
             cruzadores[i].posicoes[j].acertou = 0;
-			escreverMatriz(linha, coluna, '0');
+            //escreverMatriz(linha, coluna, '0');
+            escreverMatriz(linha, coluna, 'c');
             coluna++;
         }
 
