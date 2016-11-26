@@ -521,11 +521,11 @@ unsigned int isAcertouEncouracado(unsigned int linha, unsigned int coluna) {
                     encouracados[i].posicoes[j].col == coluna &&
                     encouracados[i].posicoes[j].acertou == 0) {
                 encouracados[i].posicoes[j].acertou = 1;
-                return &(encouracados[i]);
+                return i;
             }
         }
     }
-    return 0;
+    return -1;
 }
 
 unsigned int isAfundouEncouracado(signed int *encouracadoAcertado) {
@@ -547,11 +547,11 @@ unsigned int isAcertouPortaAvioes(unsigned int linha, unsigned int coluna) {
                     porta_avioes[i].posicoes[j].col == coluna &&
                     porta_avioes[i].posicoes[j].acertou == 0) {
                 porta_avioes[i].posicoes[j].acertou = 1;
-                return &(porta_avioes[i]);
+                return i;
             }
         }
     }
-    return 0;
+    return -1;
 }
 
 unsigned int isAfundouPortaAvioes(signed int *portaAvioesAcertado) {
@@ -573,11 +573,11 @@ unsigned int isAcertouHidroAviao(unsigned int linha, unsigned int coluna) {
                     hidroavioes[i].posicoes[j].col == coluna &&
                     hidroavioes[i].posicoes[j].acertou == 0) {
                 hidroavioes[i].posicoes[j].acertou = 1;
-                return &(hidroavioes[i]);
+                return i;
             }
         }
     }
-    return 0;
+    return -1;
 }
 
 unsigned int isAfundouHidroAviao(unsigned int *hidroAviaoAcertado) {
@@ -599,11 +599,11 @@ unsigned int isAcertouSubmarino(unsigned int linha, unsigned int coluna) {
                     submarinos[i].posicoes[j].col == coluna &&
                     submarinos[i].posicoes[j].acertou == 0) {
                 submarinos[i].posicoes[j].acertou = 1;
-                return &(submarinos[i]);
+                return i;
             }
         }
     }
-    return 0;
+    return -1;
 }
 
 unsigned int isAfundouSubmarino(unsigned int *submarinoAcertado) {
@@ -625,11 +625,11 @@ unsigned int isAcertouCruzador(unsigned int linha, unsigned int coluna) {
                     cruzadores[i].posicoes[j].col == coluna &&
                     cruzadores[i].posicoes[j].acertou == 0) {
                 cruzadores[i].posicoes[j].acertou = 1;
-                return &(cruzadores[i]);
+                return i;
             }
         }
     }
-    return 0;
+    return -1;
 }
 
 unsigned int isAfundouCruzador(unsigned int *cruzadorAcertado) {
