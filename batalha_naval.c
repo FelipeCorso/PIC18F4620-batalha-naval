@@ -346,8 +346,7 @@ void quebraLinha() {
 }
  */
 
-
-void imprimirMatriz(unsigned int isImprimirTelaInicial) {
+void imprimirMatriz(unsigned int isImprimirTelaInicial, unsigned int isImprimirRespostas) {
     unsigned int i = 0;
     unsigned int j = 0;
     unsigned char letra_A = 65;
@@ -381,11 +380,15 @@ void imprimirMatriz(unsigned int isImprimirTelaInicial) {
         for (j = 0; j < tamanho_matriz; j++) {
             valorPosicao = matriz[i][j];
             // UART1_Write(' ');
-            if (valorPosicao == -1 || valorPosicao == 0 || isImprimirTelaInicial) {
-                // UART1_Write('~');
+            // if (valorPosicao == -1 || valorPosicao == 0 || isImprimirTelaInicial) {
+            if (valorPosicao == -1 || isImprimirTelaInicial) {
+                //UART1_Write('~');
             } else {
-                // IntToStr(valorPosicao, printLetra);
-                // UART1_Write(printLetra);
+                if (!isImprimirRespostas && !(printLetra >= 65 && printLetra <= 90)) {
+                    // UART1_Write('~');
+                } else {
+                    // UART1_Write(valorPosicao);
+                }
             }
             // UART1_Write_Text(" |");
         }
