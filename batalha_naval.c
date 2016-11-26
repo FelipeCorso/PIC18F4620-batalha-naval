@@ -778,6 +778,8 @@ void main() {
             imprimirMatriz(0, 1);
         } else {
             municoes--;
+            linha = linha - 1;
+            coluna = coluna - 1;
             verificarJogada(linha, coluna);
 
             imprimirMatriz(0);        
