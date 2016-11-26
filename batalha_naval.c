@@ -547,10 +547,10 @@ unsigned int isAcertouEncouracado(unsigned int linha, unsigned int coluna) {
     return -1;
 }
 
-unsigned int isAfundouEncouracado(signed int *encouracadoAcertado) {
+unsigned int isAfundouEncouracado(unsigned int encouracadoAcertado) {
     unsigned int j = 0;
     for (j = 0; j < encouracados_posicoes; j++) {
-        if (encouracados[*encouracadoAcertado].posicoes[j].acertou != 1) {
+        if (encouracados[encouracadoAcertado].posicoes[j].acertou != 1) {
             return 0;
         }
     }
@@ -573,10 +573,10 @@ unsigned int isAcertouPortaAvioes(unsigned int linha, unsigned int coluna) {
     return -1;
 }
 
-unsigned int isAfundouPortaAvioes(signed int *portaAvioesAcertado) {
+unsigned int isAfundouPortaAvioes(unsigned int portaAvioesAcertado) {
     unsigned int j = 0;
     for (j = 0; j < porta_avioes_posicoes; j++) {
-        if (porta_avioes[*portaAvioesAcertado].posicoes[j].acertou != 1) {
+        if (porta_avioes[portaAvioesAcertado].posicoes[j].acertou != 1) {
             return 0;
         }
     }
@@ -599,10 +599,10 @@ unsigned int isAcertouHidroAviao(unsigned int linha, unsigned int coluna) {
     return -1;
 }
 
-unsigned int isAfundouHidroAviao(unsigned int *hidroAviaoAcertado) {
+unsigned int isAfundouHidroAviao(unsigned int hidroAviaoAcertado) {
     unsigned int j = 0;
     for (j = 0; j < hidroavioes_posicoes; j++) {
-        if (hidroavioes[*hidroAviaoAcertado].posicoes[j].acertou != 1) {
+        if (hidroavioes[hidroAviaoAcertado].posicoes[j].acertou != 1) {
             return 0;
         }
     }
@@ -625,10 +625,10 @@ unsigned int isAcertouSubmarino(unsigned int linha, unsigned int coluna) {
     return -1;
 }
 
-unsigned int isAfundouSubmarino(unsigned int *submarinoAcertado) {
+unsigned int isAfundouSubmarino(unsigned int submarinoAcertado) {
     unsigned int j = 0;
     for (j = 0; j < submarinos_posicoes; j++) {
-        if (submarinos[*submarinoAcertado].posicoes[j].acertou != 1) {
+        if (submarinos[submarinoAcertado].posicoes[j].acertou != 1) {
             return 0;
         }
     }
@@ -651,10 +651,10 @@ unsigned int isAcertouCruzador(unsigned int linha, unsigned int coluna) {
     return -1;
 }
 
-unsigned int isAfundouCruzador(unsigned int *cruzadorAcertado) {
+unsigned int isAfundouCruzador(unsigned int cruzadorAcertado) {
     unsigned int j = 0;
     for (j = 0; j < cruzadores_posicoes; j++) {
-        if (cruzadores[*cruzadorAcertado].posicoes[j].acertou != 1) {
+        if (cruzadores[cruzadorAcertado].posicoes[j].acertou != 1) {
             return 0;
         }
     }
@@ -662,56 +662,61 @@ unsigned int isAfundouCruzador(unsigned int *cruzadorAcertado) {
 }
 
 void verificarJogada(unsigned int linha, unsigned int coluna) {
-    signed int *encouracadoAcertado = isAcertouEncouracado(linha, coluna);
-    if (*encouracadoAcertado) {
+    signed int encouracadoAcertado;
+    encouracadoAcertado = isAcertouEncouracado(linha, coluna);
+    if (encouracadoAcertado != -1) {
         municoes += 2;
         executarSomAcertou();
         escreverMatriz(linha, coluna, 'E');
-        if (isAfundouEncouracado(&encouracadoAcertado)) {
+        if (isAfundouEncouracado(encouracadoAcertado)) {
             municoes += 3;
             encouracados_acertos++;
             executarSomAfundou();
         }
     } else {
-        signed int *portaAvioesAcertado = isAcertouPortaAvioes(linha, coluna);
-        if (*portaAvioesAcertado) {
+        signed int portaAvioesAcertado;
+        portaAvioesAcertado = isAcertouPortaAvioes(linha, coluna);
+        if (portaAvioesAcertado != -1) {
             municoes += 2;
             executarSomAcertou();
             escreverMatriz(linha, coluna, 'P');
-            if (isAfundouPortaAvioes(&portaAvioesAcertado)) {
+            if (isAfundouPortaAvioes(portaAvioesAcertado)) {
                 municoes += 3;
                 porta_avioes_acertos++;
                 executarSomAfundou();
             }
         } else {
-            signed int hidroAviaoAcertado = isAcertouHidroAviao(linha, coluna);
-            if (*hidroAviaoAcertado) {
+            signed int hidroAviaoAcertado;
+            hidroAviaoAcertado = isAcertouHidroAviao(linha, coluna);
+            if (hidroAviaoAcertado != -1) {
                 municoes += 2;
                 executarSomAcertou();
                 escreverMatriz(linha, coluna, 'H');
-                if (isAfundouHidroAviao(&hidroAviaoAcertado)) {
+                if (isAfundouHidroAviao(hidroAviaoAcertado)) {
                     municoes += 3;
                     hidroavioes_acertos++;
                     executarSomAfundou();
                 }
             } else {
-                signed int submarinoAcertado = isAcertouSubmarino(linha, coluna);
-                if (*submarinoAcertado) {
+                signed int submarinoAcertado;
+                submarinoAcertado = isAcertouSubmarino(linha, coluna);
+                if (submarinoAcertado != -1) {
                     municoes += 2;
                     executarSomAcertou();
                     escreverMatriz(linha, coluna, 'S');
-                    if (isAfundouSubmarino(&submarinoAcertado)) {
+                    if (isAfundouSubmarino(submarinoAcertado)) {
                         municoes += 3;
                         submarinos_acertos++;
                         executarSomAfundou();
                     }
                 } else {
-                    signed int cruzadorAcertado = isAcertouCruzador(linha, coluna);
-                    if (*cruzadorAcertado) {
+                    signed int cruzadorAcertado;
+                    cruzadorAcertado = isAcertouCruzador(linha, coluna);
+                    if (cruzadorAcertado != -1) {
                         municoes += 2;
                         executarSomAcertou();
                         escreverMatriz(linha, coluna, 'C');
-                        if (isAfundouCruzador(&cruzadorAcertado)) {
+                        if (isAfundouCruzador(cruzadorAcertado)) {
                             municoes += 3;
                             cruzadores_acertos++;
                             executarSomAfundou();
