@@ -177,15 +177,15 @@ void initEncouracados() {
             escreverMatriz(linha, coluna, 'e');
             coluna++;
         }
-		
+
         if ((i + 1) < encouracados_qtd) {
-			linha = getPosicao();
-			coluna = getPosicao();
+            linha = getPosicao();
+            coluna = getPosicao();
             posicaoValida = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
             while (!posicaoValida) {
                 posicaoValida = isPosicaoValida(&linha, &coluna, encouracados_posicoes);
             }
-        }        
+        }
     }
 }
 
@@ -193,14 +193,14 @@ void initPortaAvioes() {
     unsigned int i = 0;
     unsigned int linha = 0;
     unsigned int coluna = 0;
-	unsigned int posicaoValida = 0;
+    unsigned int posicaoValida = 0;
 
     linha = getPosicao();
-    coluna = getPosicao();	
-	posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
-    while (!posicaoValida){
-		posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
-	}
+    coluna = getPosicao();
+    posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
+    while (!posicaoValida) {
+        posicaoValida = isPosicaoValida(&linha, &coluna, porta_avioes_posicoes);
+    }
 
     for (i = 0; i < porta_avioes_posicoes; i++) {
         porta_avioes[0].posicoes[i].lin = linha;
@@ -216,14 +216,14 @@ void initHidroavioes() {
     unsigned int j = 0;
     unsigned int linha = 0;
     unsigned int coluna = 0;
-	unsigned int posicaoValida = 0;
+    unsigned int posicaoValida = 0;
 
     linha = getPosicao();
     coluna = getPosicao();
-	posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
-    while (!posicaoValida){
-		posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
-	}
+    posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
+    while (!posicaoValida) {
+        posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
+    }
 
     for (i = 0; i < hidroavioes_qtd; i++) {
         for (j = 0; j < hidroavioes_posicoes; j++) {
@@ -234,15 +234,15 @@ void initHidroavioes() {
             escreverMatriz(linha, coluna, 'h');
             coluna++;
         }
-		
-		if((i + 1) < hidroavioes_qtd){
-		    linha = getPosicao();
-			coluna = getPosicao();
-			posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
-			while (!posicaoValida){
-				posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
-			}
-		}
+
+        if ((i + 1) < hidroavioes_qtd) {
+            linha = getPosicao();
+            coluna = getPosicao();
+            posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
+            while (!posicaoValida) {
+                posicaoValida = isPosicaoValida(&linha, &coluna, hidroavioes_posicoes);
+            }
+        }
     }
 }
 
@@ -251,14 +251,14 @@ void initSubmarinos() {
     unsigned int j = 0;
     unsigned int linha = 0;
     unsigned int coluna = 0;
-	unsigned int posicaoValida = 0;
+    unsigned int posicaoValida = 0;
 
     linha = getPosicao();
     coluna = getPosicao();
-	posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
-    while (!posicaoValida){
-		posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
-	}
+    posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
+    while (!posicaoValida) {
+        posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
+    }
 
     for (i = 0; i < submarinos_qtd; i++) {
         for (j = 0; j < submarinos_posicoes; j++) {
@@ -269,15 +269,15 @@ void initSubmarinos() {
             escreverMatriz(linha, coluna, 's');
             coluna++;
         }
-		
-		if((i + 1) < submarinos_qtd){
-			linha = getPosicao();
-			coluna = getPosicao();
-			posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
-			while (!posicaoValida){
-				posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
-			}
-		}
+
+        if ((i + 1) < submarinos_qtd) {
+            linha = getPosicao();
+            coluna = getPosicao();
+            posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
+            while (!posicaoValida) {
+                posicaoValida = isPosicaoValida(&linha, &coluna, submarinos_posicoes);
+            }
+        }
     }
 }
 
@@ -286,14 +286,14 @@ void initCruzadores() {
     unsigned int j = 0;
     unsigned int linha = 0;
     unsigned int coluna = 0;
-	unsigned int posicaoValida = 0;
+    unsigned int posicaoValida = 0;
 
     linha = getPosicao();
     coluna = getPosicao();
-	posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
-    while (!posicaoValida){
-		posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
-	}
+    posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
+    while (!posicaoValida) {
+        posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
+    }
 
     for (i = 0; i < cruzadores_qtd; i++) {
         for (j = 0; j < cruzadores_posicoes; j++) {
@@ -305,14 +305,14 @@ void initCruzadores() {
             coluna++;
         }
 
-        if((i + 1) < cruzadores_qtd){
-		    linha = getPosicao();
-			coluna = getPosicao();
-			posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
-			while (!posicaoValida){
-				posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
-			}
-		}
+        if ((i + 1) < cruzadores_qtd) {
+            linha = getPosicao();
+            coluna = getPosicao();
+            posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
+            while (!posicaoValida) {
+                posicaoValida = isPosicaoValida(&linha, &coluna, cruzadores_posicoes);
+            }
+        }
     }
 }
 
@@ -321,7 +321,7 @@ void quebraLinha() {
     UART1_Write(10);
 }
 
- void initRandom() {
+void initRandom() {
     UART1_Write_Text("Pressione uma tecla ");
     while (1) {
         random++;
@@ -331,8 +331,8 @@ void quebraLinha() {
         UART1_Read_Text(input_config, ENTER, 30);
         tecla = atoi(input_config);
         if (tecla != 255) {
-           srand(random);
-           break;
+            srand(random);
+            break;
         }
     }
     quebraLinha();
@@ -757,16 +757,16 @@ void main() {
         UART1_Read_Text(input_config, ENTER, 30);
         UART1_Write_Text(input_config);
         linha = atoi(input_config);
-        
+
         quebraLinha();
-        
+
         UART1_Write_Text("Informe uma coluna: ");
         while (!UART1_Data_Ready());
         UART1_Read_Text(input_config, ENTER, 30);
-        UART1_Write_Text(input_config);        
-            coluna = atoi(input_config);
+        UART1_Write_Text(input_config);
+        coluna = atoi(input_config);
 
-            quebraLinha();
+        quebraLinha();
 
         if (coluna == 99) {
             imprimirMatriz(0, 1);
@@ -787,7 +787,7 @@ void main() {
                 return;
             } else {
                 imprimirMatriz(0, 0);
-        }
+            }
         }
         quebraLinha();
     }
