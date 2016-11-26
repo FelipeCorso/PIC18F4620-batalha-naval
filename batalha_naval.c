@@ -317,13 +317,12 @@ void initCruzadores() {
 }
 
 void quebraLinha() {
-    // UART1_Write(13);
-    // UART1_Write(10);
+    UART1_Write(13);
+    UART1_Write(10);
 }
 
-/*
  void initRandom() {
-    // UART1_Write_Text("Pressione uma tecla ");
+    UART1_Write_Text("Pressione uma tecla ");
     while (1) {
         random++;
         while (!UART1_Data_Ready()) {
@@ -338,7 +337,6 @@ void quebraLinha() {
     }
     quebraLinha();
 }
- */
 
 void imprimirMatriz(unsigned int isImprimirTelaInicial, unsigned int isImprimirRespostas) {
     unsigned int i = 0;
