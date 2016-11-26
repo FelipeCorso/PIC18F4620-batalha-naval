@@ -507,9 +507,28 @@ unsigned int isGanhou() {
 }
 
 void executarSomAcertou() {
+    Sound_Init(&PORTC, 2);
+    Sound_Play(880, 500);
+}
+
+void executarSomErrou() {
+    Sound_Init(&PORTC, 2);
+    Sound_Play(780, 500);
 }
 
 void executarSomAfundou() {
+    Sound_Init(&PORTC, 2);
+    Sound_Play(880, 1000);
+}
+
+void executarSomGanhou() {
+    Sound_Init(&PORTC, 2);
+    Sound_Play(980, 1000);
+}
+
+void executarSomPerdeu() {
+    Sound_Init(&PORTC, 2);
+    Sound_Play(680, 1000);
 }
 
 unsigned int isAcertouEncouracado(unsigned int linha, unsigned int coluna) {
