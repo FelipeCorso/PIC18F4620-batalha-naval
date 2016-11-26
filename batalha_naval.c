@@ -377,6 +377,12 @@ void imprimirMatriz(unsigned int isImprimirTelaInicial) {
     }
 }
 
+unsigned int isGanhou() {
+    unsigned int total_acertos_qtd = 0;
+    total_acertos_qtd = encouracados_acertos + porta_avioes_acertos + hidroavioes_acertos + submarinos_acertos + cruzadores_acertos;
+    return total_acertos_qtd == 15;
+}
+
 void executarSomAcertou() {
 }
 
