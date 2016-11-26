@@ -67,14 +67,24 @@ unsigned char ENTER[2] = {13, 0};
 unsigned int random = 0;
 unsigned const int encouracados_posicoes = 5;
 unsigned int encouracados_qtd = 2;
+unsigned int encouracados_acertos = 0;
+
 unsigned const int porta_avioes_posicoes = 6;
 unsigned int porta_avioes_qtd = 1;
+unsigned int porta_avioes_acertos = 0;
+
 unsigned const int hidroavioes_posicoes = 3;
 unsigned int hidroavioes_qtd = 5;
+unsigned int hidroavioes_acertos = 0;
+
 unsigned const int submarinos_posicoes = 1;
 unsigned int submarinos_qtd = 4;
+unsigned int submarinos_acertos = 0;
+
 unsigned const int cruzadores_posicoes = 2;
 unsigned int cruzadores_qtd = 3;
+unsigned int cruzadores_acertos = 0;
+
 unsigned const int tamanho_matriz = 15;
 signed int matriz[15][15];
 unsigned char printLinhaColuna;
@@ -377,6 +387,119 @@ void imprimirMatriz(unsigned int isImprimirTelaInicial) {
     }
 }
 
+void imprimirPontuacao() {
+    unsigned char encouracados_acertos_print;
+    unsigned char encouracados_restante_qtd = 0;
+    unsigned char encouracados_restante_print;
+
+    unsigned char porta_avioes_acertos_print;
+    unsigned char porta_avioes_restante_qtd = 0;
+    unsigned char porta_avioes_restante_print;
+
+    unsigned char hidroavioes_acertos_print;
+    unsigned char hidroavioes_restante_qtd = 0;
+    unsigned char hidroavioes_restante_print;
+
+    unsigned char submarinos_acertos_print;
+    unsigned char submarinos_restante_qtd = 0;
+    unsigned char submarinos_restante_print;
+
+    unsigned char cruzadores_acertos_print;
+    unsigned char cruzadores_restante_qtd = 0;
+    unsigned char cruzadores_restante_print;
+
+    unsigned char total_acertos_qtd = 0;
+    unsigned char total_acertos_print;
+    unsigned char total_restante_qtd = 0;
+    unsigned char total_restante_print;
+
+    IntToStr(encouracados_acertos, encouracados_acertos_print);
+    encouracados_restante_qtd = encouracados_qtd - encouracados_acertos;
+    IntToStr(encouracados_restante_qtd, encouracados_restante_print);
+
+    IntToStr(porta_avioes_acertos, porta_avioes_acertos_print);
+    porta_avioes_restante_qtd = porta_avioes_qtd - porta_avioes_acertos;
+    IntToStr(porta_avioes_restante_qtd, porta_avioes_restante_print);
+
+    IntToStr(hidroavioes_acertos, hidroavioes_acertos_print);
+    hidroavioes_restante_qtd = hidroavioes_qtd - hidroavioes_acertos;
+    IntToStr(hidroavioes_restante_qtd, hidroavioes_restante_print);
+
+    IntToStr(submarinos_acertos, submarinos_acertos_print);
+    submarinos_restante_qtd = submarinos_qtd - submarinos_acertos;
+    IntToStr(submarinos_restante_qtd, submarinos_restante_print);
+
+    IntToStr(cruzadores_acertos, cruzadores_acertos_print);
+    cruzadores_restante_qtd = cruzadores_qtd - cruzadores_acertos;
+    IntToStr(cruzadores_restante_qtd, cruzadores_restante_print);
+
+    total_acertos_qtd = encouracados_acertos + porta_avioes_acertos + hidroavioes_acertos + submarinos_acertos + cruzadores_acertos;
+    IntToStr(total_acertos_qtd, total_acertos_print);
+    total_restante_qtd = 15 - total_acertos_qtd;
+    IntToStr(total_restante_qtd, total_restante_print);
+
+    UART1_Write_Text("| Qtd |");
+    UART1_Write_Text(" Formato |");
+    UART1_Write_Text(" Acertos |");
+    UART1_Write_Text(" Restam |");
+
+    quebraLinha();
+
+    UART1_Write_Text("|  2  |");
+    UART1_Write_Text(" XXXXX   | ");
+    UART1_Write_Text(encouracados_acertos_print);
+    UART1_Write_Text(" | ");
+    UART1_Write_Text(encouracados_restante_print);
+    UART1_Write_Text(" |");
+
+    quebraLinha();
+
+    UART1_Write_Text("|  1  |");
+    UART1_Write_Text(" XXXXXX  | ");
+    UART1_Write_Text(porta_avioes_acertos_print);
+    UART1_Write_Text(" | ");
+    UART1_Write_Text(porta_avioes_restante_print);
+    UART1_Write_Text(" |");
+
+    quebraLinha();
+
+    UART1_Write_Text("|  5  |");
+    UART1_Write_Text(" XXX     | ");
+    UART1_Write_Text(hidroavioes_acertos_print);
+    UART1_Write_Text(" | ");
+    UART1_Write_Text(hidroavioes_restante_print);
+    UART1_Write_Text(" |");
+
+    quebraLinha();
+
+    UART1_Write_Text("|  4  |");
+    UART1_Write_Text(" X       | ");
+    UART1_Write_Text(submarinos_acertos_print);
+    UART1_Write_Text(" | ");
+    UART1_Write_Text(submarinos_restante_print);
+    UART1_Write_Text(" |");
+
+    quebraLinha();
+
+    UART1_Write_Text("|  3  |");
+    UART1_Write_Text(" XXX     | ");
+    UART1_Write_Text(cruzadores_acertos_print);
+    UART1_Write_Text(" | ");
+    UART1_Write_Text(cruzadores_restante_print);
+    UART1_Write_Text(" |");
+
+    quebraLinha();
+
+    UART1_Write_Text("| 15 |");
+    UART1_Write_Text(" TOTAL  | ");
+    UART1_Write_Text(total_acertos_print);
+    UART1_Write_Text(" | ");
+    UART1_Write_Text(total_restante_print);
+    UART1_Write_Text(" |");
+
+    quebraLinha();
+}
+
 unsigned int isGanhou() {
     unsigned int total_acertos_qtd = 0;
     total_acertos_qtd = encouracados_acertos + porta_avioes_acertos + hidroavioes_acertos + submarinos_acertos + cruzadores_acertos;
@@ -527,6 +650,7 @@ void verificarJogada(unsigned int linha, unsigned int coluna) {
         escreverMatriz(linha, coluna, 'E');
         if (isAfundouEncouracado(&encouracadoAcertado)) {
             municoes += 3;
+            encouracados_acertos++;
             executarSomAfundou();
         }
     } else {
@@ -537,6 +661,7 @@ void verificarJogada(unsigned int linha, unsigned int coluna) {
             escreverMatriz(linha, coluna, 'P');
             if (isAfundouPortaAvioes(&portaAvioesAcertado)) {
                 municoes += 3;
+                porta_avioes_acertos++;
                 executarSomAfundou();
             }
         } else {
@@ -547,6 +672,7 @@ void verificarJogada(unsigned int linha, unsigned int coluna) {
                 escreverMatriz(linha, coluna, 'H');
                 if (isAfundouHidroAviao(&hidroAviaoAcertado)) {
                     municoes += 3;
+                    hidroavioes_acertos++;
                     executarSomAfundou();
                 }
             } else {
@@ -557,6 +683,7 @@ void verificarJogada(unsigned int linha, unsigned int coluna) {
                     escreverMatriz(linha, coluna, 'S');
                     if (isAfundouSubmarino(&submarinoAcertado)) {
                         municoes += 3;
+                        submarinos_acertos++;
                         executarSomAfundou();
                     }
                 } else {
@@ -567,6 +694,7 @@ void verificarJogada(unsigned int linha, unsigned int coluna) {
                         escreverMatriz(linha, coluna, 'C');
                         if (isAfundouCruzador(&cruzadorAcertado)) {
                             municoes += 3;
+                            cruzadores_acertos++;
                             executarSomAfundou();
                         }
                     } else {
