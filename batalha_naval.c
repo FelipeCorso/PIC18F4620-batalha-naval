@@ -735,29 +735,25 @@ void verificarJogada(unsigned int linha, unsigned int coluna) {
 }
 
 void main() {
-    // UART1_Init(19200); // Initialize UART module at 19200 bps
-
+    unsigned int printMunicoes;
     unsigned int linha;
     unsigned int coluna;
+
+    UART1_Init(19200); // Initialize UART module at 19200 bps
 
     initRandom();
     initMatriz();
     initEncouracados();
-    /*
     initPortaAvioes();
     initHidroavioes();
     initSubmarinos();
     initCruzadores();
 
-    imprimirMatriz(1);
-    */
-    
-    // REMOVER
-    verificarJogada(0, 0);
+    imprimirMatriz(1, 0);
+    quebraLinha();
 
     while (municoes > 0) {
 
-        /*
         UART1_Write_Text("Informe uma linha: ");
         while (!UART1_Data_Ready());
         UART1_Read_Text(input_config, ENTER, 30);
@@ -782,9 +778,32 @@ void main() {
             coluna = coluna - 1;
             verificarJogada(linha, coluna);
 
-            imprimirMatriz(0);        
+			quebraLinha();
+			
+            imprimirPontuacao();
+
+            if (isGanhou()) {
+                imprimirMatriz(0, 1);
+                quebraLinha();
+                imprimirPontuacao();
+                return;
+            } else {
+                imprimirMatriz(0, 0);
         }
-        */
+        }
+        quebraLinha();
+    }
+
+    if (!municoes) {
+        UART1_Write_Text("Sem municao");
+        quebraLinha();
+        UART1_Write_Text("GAME OVER!!!");
+    } else {
+        UART1_Write_Text("Parabens! Voce ganhou.");
+        quebraLinha();
+        UART1_Write_Text("Pontuacao: ");
+        IntToStr(municoes, printMunicoes);
+        UART1_Write_Text(printMunicoes);
     }
 
 }
