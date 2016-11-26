@@ -90,29 +90,6 @@ signed int matriz[15][15];
 unsigned char printLinhaColuna;
 unsigned char JOGO_DA_VELHA = 35;
 
-unsigned int getPosicao() {
-    // return rand() / 2184;
-    return 0;
-}
-
-unsigned int isPosicaoValida(unsigned int *linha, unsigned int *coluna, unsigned int tamanho) {
-    unsigned int valorLinha = *linha;
-    unsigned int valorColuna = *coluna;
-    signed int valorPosicao = matriz[valorLinha][valorColuna];
-    if (valorPosicao != -1) {
-        (*coluna)++;
-        if (*coluna > (tamanho_matriz - tamanho)) {
-            *coluna = 0;
-            (*linha)++;
-            if (*linha > tamanho_matriz) {
-                *linha = 0;
-            }
-        }
-        return 0;
-    }
-    return 1;
-}
-
 struct Acertos {
     int lin;
     int col;
@@ -138,6 +115,30 @@ struct {
 struct {
     struct Acertos posicoes[cruzadores_posicoes];
 } cruzadores[3];
+
+unsigned int getPosicao() {
+    return rand() / 2184;
+}
+
+unsigned int isPosicaoValida(unsigned int *linha, unsigned int *coluna, unsigned int tamanho) {
+    //unsigned const int valorLinha = *linha;
+    //unsigned const int valorColuna = *coluna;
+    int valorPosicao;
+    valorPosicao = matriz[*linha][*coluna];
+    if (valorPosicao != -1) {
+        (*coluna)++;
+        return 0;
+    }
+    if ((*coluna > (tamanho_matriz - tamanho))) {
+        *coluna = 0;
+        (*linha)++;
+        if (*linha > tamanho_matriz) {
+            *linha = 0;
+        }
+        return 0;
+    }
+    return 1;
+}
 
 void escreverMatriz(unsigned int linha, unsigned int coluna, unsigned char valor) {
     matriz[linha][coluna] = valor;
