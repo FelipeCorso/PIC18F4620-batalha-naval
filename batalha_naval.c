@@ -203,8 +203,8 @@ void initPortaAvioes() {
 	}
 
     for (i = 0; i < porta_avioes_posicoes; i++) {
-        porta_avioes[0].posicoes[i].lin = 0;
-        porta_avioes[0].posicoes[i].col = 0;
+        porta_avioes[0].posicoes[i].lin = linha;
+        porta_avioes[0].posicoes[i].col = coluna;
         porta_avioes[0].posicoes[i].acertou = 0;
         //escreverMatriz(linha, coluna, '0');
         escreverMatriz(linha, i, 'p');
