@@ -342,8 +342,8 @@ void imprimirMatriz(unsigned int isImprimirTelaInicial, unsigned int isImprimirR
     unsigned int i = 0;
     unsigned int j = 0;
     unsigned char letra_A = 65;
-    unsigned char printLetra;
-    signed int valorPosicao;
+    unsigned char printLetra = 0;
+    signed int valorPosicao = 0;
     /*
     UART1_Write_Text("|   |");
     UART1_Write_Text(" 1 |");
@@ -371,21 +371,21 @@ void imprimirMatriz(unsigned int isImprimirTelaInicial, unsigned int isImprimirR
         // UART1_Write_Text(" |");
         for (j = 0; j < tamanho_matriz; j++) {
             valorPosicao = matriz[i][j];
-            // UART1_Write(' ');
-            // if (valorPosicao == -1 || valorPosicao == 0 || isImprimirTelaInicial) {					
-			if((valorPosicao == -1) || isImprimirTelaInicial) {
-				//UART1_Write('~');
-			} else {
-				if (isImprimirRespostas || (printLetra >= 65 && printLetra <= 90) || (printLetra == 46)) {
-					// UART1_Write(valorPosicao);
-				} else {
-					if (printLetra >= 97 && printLetra <= 122) {
-						//UART1_Write('~');
-					} else {
-						//UART1_Write('X');
-					}
-				}
-			}
+            // UART1_Write(' ');       // -1 C c .
+            // if (valorPosicao == -1 || valorPosicao == 0 || isImprimirTelaInicial) {                                        
+                        if((valorPosicao == -1) || isImprimirTelaInicial) {
+							// UART1_Write('~');
+                        } else {
+                                if (isImprimirRespostas || (valorPosicao >= 65 && valorPosicao <= 90) || (valorPosicao == 46)) {
+                                    // UART1_Write(valorPosicao);
+                                } else {
+                                        if (valorPosicao >= 97 && valorPosicao <= 122) {
+                                            // UART1_Write('~');
+                                        } else {
+                                            // UART1_Write('X');
+                                        }
+                                }
+                        }
             // UART1_Write_Text(" |");
         }
         quebraLinha();
@@ -393,30 +393,30 @@ void imprimirMatriz(unsigned int isImprimirTelaInicial, unsigned int isImprimirR
 }
 
 void imprimirPontuacao() {
-    unsigned char encouracados_acertos_print;
-    unsigned char encouracados_restante_qtd = 0;
-    unsigned char encouracados_restante_print;
+    unsigned char encouracados_acertos_print[7];
+    unsigned int encouracados_restante_qtd = 0;
+    unsigned char encouracados_restante_print[7];
 
-    unsigned char porta_avioes_acertos_print;
-    unsigned char porta_avioes_restante_qtd = 0;
-    unsigned char porta_avioes_restante_print;
+    unsigned char porta_avioes_acertos_print[7];
+    unsigned int porta_avioes_restante_qtd = 0;
+    unsigned char porta_avioes_restante_print[7];
 
-    unsigned char hidroavioes_acertos_print;
-    unsigned char hidroavioes_restante_qtd = 0;
-    unsigned char hidroavioes_restante_print;
+    unsigned char hidroavioes_acertos_print[7];
+    unsigned int hidroavioes_restante_qtd = 0;
+    unsigned char hidroavioes_restante_print[7];
 
-    unsigned char submarinos_acertos_print;
-    unsigned char submarinos_restante_qtd = 0;
-    unsigned char submarinos_restante_print;
+    unsigned char submarinos_acertos_print[7];
+    unsigned int submarinos_restante_qtd = 0;
+    unsigned char submarinos_restante_print[7];
 
-    unsigned char cruzadores_acertos_print;
-    unsigned char cruzadores_restante_qtd = 0;
-    unsigned char cruzadores_restante_print;
+    unsigned char cruzadores_acertos_print[7];
+    unsigned int cruzadores_restante_qtd = 0;
+    unsigned char cruzadores_restante_print[7];
 
-    unsigned char total_acertos_qtd = 0;
-    unsigned char total_acertos_print;
-    unsigned char total_restante_qtd = 0;
-    unsigned char total_restante_print;
+    unsigned int total_acertos_qtd = 0;
+    unsigned char total_acertos_print[7];
+    unsigned int total_restante_qtd = 0;
+    unsigned char total_restante_print[7];
 
     IntToStr(encouracados_acertos, encouracados_acertos_print);
     encouracados_restante_qtd = encouracados_qtd - encouracados_acertos;
@@ -487,7 +487,7 @@ void imprimirPontuacao() {
     quebraLinha();
 
     UART1_Write_Text("|  3  |");
-    UART1_Write_Text(" XXX     | ");
+    UART1_Write_Text(" XX      | ");
     UART1_Write_Text(cruzadores_acertos_print);
     UART1_Write_Text(" | ");
     UART1_Write_Text(cruzadores_restante_print);
@@ -496,7 +496,7 @@ void imprimirPontuacao() {
     quebraLinha();
 
     UART1_Write_Text("| 15 |");
-    UART1_Write_Text(" TOTAL  | ");
+    UART1_Write_Text("  TOTAL  | ");
     UART1_Write_Text(total_acertos_print);
     UART1_Write_Text(" | ");
     UART1_Write_Text(total_restante_print);
@@ -518,7 +518,7 @@ void executarSomAcertou() {
 
 void executarSomErrou() {
     Sound_Init(&PORTC, 2);
-    Sound_Play(780, 500);
+    Sound_Play(580, 500);
 }
 
 void executarSomAfundou() {
@@ -533,7 +533,7 @@ void executarSomGanhou() {
 
 void executarSomPerdeu() {
     Sound_Init(&PORTC, 2);
-    Sound_Play(680, 1000);
+    Sound_Play(380, 1000);
 }
 
 unsigned int isAcertouEncouracado(unsigned int linha, unsigned int coluna) {
@@ -728,6 +728,7 @@ void verificarJogada(unsigned int linha, unsigned int coluna) {
                         }
                     } else {
                         escreverMatriz(linha, coluna, '.');
+                        executarSomErrou();
                     }
                 }
             }
@@ -750,7 +751,7 @@ void main() {
     initHidroavioes();
     initSubmarinos();
     initCruzadores();
-
+    
     imprimirMatriz(1, 0);
     quebraLinha();
 
@@ -780,9 +781,9 @@ void main() {
             coluna = coluna - 1;
             verificarJogada(linha, coluna);
 
-			quebraLinha();
-			
+            quebraLinha();
             imprimirPontuacao();
+            quebraLinha();
 
             if (isGanhou()) {
                 imprimirMatriz(0, 1);
@@ -800,12 +801,14 @@ void main() {
         UART1_Write_Text("Sem municao");
         quebraLinha();
         UART1_Write_Text("GAME OVER!!!");
+        executarSomPerdeu();
     } else {
         UART1_Write_Text("Parabens! Voce ganhou.");
         quebraLinha();
         UART1_Write_Text("Pontuacao: ");
         IntToStr(municoes, printMunicoes);
         UART1_Write_Text(printMunicoes);
+        executarSomGanhou();
     }
 
 }
